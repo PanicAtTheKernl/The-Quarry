@@ -3,534 +3,426 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Quarry Wiki - Technical Reference</title>
+    <title>The Quarry - Minecraft Wiki</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; background: #fafafa; }
-        .header { background: #fff; border-bottom: 1px solid #ddd; padding: 2rem; }
-        .header h1 { font-size: 2rem; font-weight: 600; margin-bottom: 0.5rem; }
-        .header p { color: #666; font-size: 0.95rem; }
-        .container { display: flex; max-width: 1200px; margin: 0 auto; min-height: calc(100vh - 120px); }
-        .sidebar { width: 240px; background: #fff; border-right: 1px solid #ddd; padding: 1rem 0; }
-        .sidebar h3 { padding: 1rem 1.5rem; font-size: 0.9rem; font-weight: 600; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
-        .nav-menu { list-style: none; }
-        .nav-menu a { display: block; padding: 0.75rem 1.5rem; color: #666; text-decoration: none; transition: all 0.2s ease; border-left: 3px solid transparent; }
-        .nav-menu a:hover { background: #f5f5f5; color: #333; }
-        .nav-menu a.active { background: #f0f8ff; color: #0066cc; border-left-color: #0066cc; font-weight: 500; }
-        .main-content { flex: 1; padding: 2rem; background: #fff; margin-left: 1px; }
-        .content-section { display: none; }
-        .content-section.active { display: block; }
-        .content-section h2 { font-size: 1.75rem; font-weight: 600; margin-bottom: 1rem; color: #222; border-bottom: 2px solid #eee; padding-bottom: 0.5rem; }
-        .content-section h3 { font-size: 1.25rem; font-weight: 600; margin: 2rem 0 1rem 0; color: #444; }
-        .content-section p { margin-bottom: 1rem; color: #555; }
-        .search-container { margin: 1.5rem 0; }
-        .search-input { width: 100%; max-width: 400px; padding: 0.75rem; border: 1px solid #ddd; border-radius: 4px; font-size: 0.95rem; transition: border-color 0.2s ease; }
-        .search-input:focus { outline: none; border-color: #0066cc; box-shadow: 0 0 0 2px rgba(0, 102, 204, 0.1); }
-        .search-stats { margin-top: 0.5rem; font-size: 0.85rem; color: #777; }
-        .mod-list { background: #fff; border: 1px solid #ddd; border-radius: 4px; max-height: 600px; overflow-y: auto; }
-        .mod-item { padding: 0.75rem 1rem; border-bottom: 1px solid #f0f0f0; transition: background-color 0.1s ease; cursor: pointer; }
-        .mod-item:hover { background: #f8f9fa; }
-        .mod-item:last-child { border-bottom: none; }
-        .mod-item.hidden { display: none; }
-        .mod-name { font-weight: 500; color: #333; margin-bottom: 0.25rem; }
-        .mod-restriction { font-size: 0.85rem; color: #d73027; font-style: italic; margin-top: 0.25rem; }
-        .mod-category { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.3px; }
-        .client-item { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; padding: 1rem; margin: 1rem 0; }
-        .client-name { font-weight: 600; color: #333; margin-bottom: 0.5rem; }
-        .client-restrictions { color: #d73027; font-size: 0.9rem; margin-top: 0.5rem; }
-        .info-box { background: #f8f9fa; border: 1px solid #e9ecef; border-left: 4px solid #0066cc; padding: 1rem; margin: 1.5rem 0; border-radius: 0 4px 4px 0; }
-        .warning-box { background: #fff8e1; border: 1px solid #ffcc02; border-left: 4px solid #ff9800; padding: 1rem; margin: 1.5rem 0; border-radius: 0 4px 4px 0; }
-        .server-specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1.5rem 0; }
-        .spec-card { background: #f8f9fa; border: 1px solid #e9ecef; border-radius: 4px; padding: 1rem; }
-        .spec-title { font-weight: 600; color: #333; margin-bottom: 0.5rem; }
-        .spec-value { font-size: 0.9rem; color: #666; }
-        .footer { background: #f8f9fa; border-top: 1px solid #ddd; text-align: center; padding: 1.5rem; color: #666; font-size: 0.9rem; }
-        .filter-buttons { margin: 1rem 0; display: flex; gap: 0.5rem; flex-wrap: wrap; }
-        .filter-btn { padding: 0.4rem 0.8rem; border: 1px solid #ddd; background: #fff; color: #666; border-radius: 4px; cursor: pointer; font-size: 0.85rem; transition: all 0.2s ease; }
-        .filter-btn:hover { background: #f5f5f5; }
-        .filter-btn.active { background: #0066cc; color: #fff; border-color: #0066cc; }
-        @media (max-width: 768px) { .container { flex-direction: column; } .sidebar { width: 100%; order: 2; } .main-content { order: 1; margin: 0; } }
-        .mod-list::-webkit-scrollbar { width: 6px; }
-        .mod-list::-webkit-scrollbar-track { background: #f1f1f1; }
-        .mod-list::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
-        .mod-list::-webkit-scrollbar-thumb:hover { background: #999; }
-        code { background: #f4f4f4; padding: 0.2rem 0.4rem; border-radius: 3px; font-family: 'Courier New', monospace; font-size: 0.9rem; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f8f9fa;
+            color: #222;
+        }
+
+        .wiki-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+        }
+
+        .wiki-header {
+            background: #eaf3ff;
+            border-bottom: 1px solid #a2a9b1;
+            padding: 20px;
+        }
+
+        .wiki-title {
+            font-size: 32px;
+            font-weight: normal;
+            margin: 0;
+            color: #000;
+        }
+
+        .wiki-subtitle {
+            font-size: 14px;
+            color: #54595d;
+            margin: 5px 0 0 0;
+        }
+
+        .wiki-content {
+            padding: 20px;
+            display: flex;
+            gap: 20px;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+
+        .infobox {
+            width: 300px;
+            border: 1px solid #a2a9b1;
+            background: #f8f9fa;
+            border-spacing: 0;
+            float: right;
+            margin: 0 0 20px 20px;
+            font-size: 14px;
+        }
+
+        .infobox-title {
+            background: #ccccff;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+            border-bottom: 1px solid #a2a9b1;
+        }
+
+        .infobox-image {
+            text-align: center;
+            padding: 10px;
+            background: #f0f0f0;
+            border-bottom: 1px solid #a2a9b1;
+        }
+
+        .infobox-row {
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        .infobox-label {
+            background: #f0f0f0;
+            font-weight: bold;
+            padding: 8px;
+            width: 35%;
+            border-right: 1px solid #e6e6e6;
+        }
+
+        .infobox-data {
+            padding: 8px;
+        }
+
+        .wiki-section {
+            margin: 25px 0;
+        }
+
+        .wiki-section h2 {
+            font-size: 24px;
+            font-weight: normal;
+            color: #000;
+            border-bottom: 3px solid #a2a9b1;
+            padding-bottom: 2px;
+            margin-bottom: 15px;
+        }
+
+        .wiki-section h3 {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+            margin: 20px 0 10px 0;
+        }
+
+        .wiki-section h4 {
+            font-size: 16px;
+            font-weight: bold;
+            color: #000;
+            margin: 15px 0 8px 0;
+        }
+
+        .wiki-toc {
+            background: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            padding: 20px;
+            margin: 20px 0;
+            display: inline-block;
+        }
+
+        .toc-title {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .toc-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .toc-item {
+            margin: 5px 0;
+        }
+
+        .toc-item a {
+            text-decoration: none;
+            color: #0645ad;
+        }
+
+        .toc-item a:hover {
+            text-decoration: underline;
+        }
+
+        .wiki-categories {
+            border-top: 1px solid #a2a9b1;
+            margin-top: 30px;
+            padding-top: 20px;
+            font-size: 14px;
+        }
+
+        .categories-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .category-links a {
+            color: #0645ad;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+
+        .category-links a:hover {
+            text-decoration: underline;
+        }
+
+        .navbox {
+            background: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            margin: 20px 0;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .navbox-title {
+            background: #ccccff;
+            font-weight: bold;
+            text-align: center;
+            padding: 8px;
+        }
+
+        .navbox-content {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .navbox-content a {
+            color: #0645ad;
+            text-decoration: none;
+            margin: 0 8px;
+        }
+
+        .code {
+            background: #f6f6f6;
+            border: 1px solid #ddd;
+            padding: 2px 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 90%;
+        }
+
+        .highlight {
+            background-color: #ffffcc;
+            padding: 1px 3px;
+        }
+
+        .external-link::after {
+            content: " 🔗";
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
-<header class="header">
-    <h1>The Quarry Wiki</h1>
-    <p>Technical reference for allowed modifications, clients, and server information</p>
-</header>
-<div class="container">
-    <nav class="sidebar">
-        <h3>Navigation</h3>
-        <ul class="nav-menu">
-            <li><a href="#" onclick="showSection(this,'mods')" class="active">Allowed Mods</a></li>
-            <li><a href="#" onclick="showSection(this,'clients')">Allowed Clients</a></li>
-            <li><a href="#" onclick="showSection(this,'dupes')">Allowed Dupes</a></li>
-            <li><a href="#" onclick="showSection(this,'server-info')">Server Info</a></li>
-        </ul>
-    </nav>
-    <main class="main-content">
-        <section id="mods" class="content-section active">
-            <h2>Allowed Modifications</h2>
-            <p>Comprehensive list of permitted modifications on The Quarry server. Any mod not listed here should be considered prohibited unless explicitly approved by server staff.</p>
-            <div class="info-box"><strong>Important:</strong> Some mods have specific restrictions that must be followed. Failure to comply may result in disciplinary action.</div>
-            <div class="search-container">
-                <input type="text" class="search-input" id="mod-search" placeholder="Search mods..." oninput="searchMods()">
-                <div class="search-stats" id="search-stats">Showing all mods</div>
+    <div class="wiki-container">
+        <div class="wiki-header">
+            <h1 class="wiki-title">The Quarry</h1>
+            <p class="wiki-subtitle">From Minecraft Server Wiki</p>
+        </div>
+
+        <div class="wiki-content">
+            <div class="main-content">
+                <table class="infobox">
+                    <tr>
+                        <td class="infobox-title" colspan="2">The Quarry</td>
+                    </tr>
+                    <tr>
+                        <td class="infobox-image" colspan="2">
+                            <img src="quarrylogo.png" alt="Quarry Logo" style="width: 200px; height: 150px; object-fit: contain; margin: 0 auto; display: block; border-radius: 4px;">
+                    </td>
+
+                    </tr>
+                    <tr class="infobox-row">
+                        <td class="infobox-label">Server IP</td>
+                        <td class="infobox-data"><span class="code">play.thequarry.xyz</span></td>
+                    </tr>
+                    <tr class="infobox-row">
+                        <td class="infobox-label">Version</td>
+                        <td class="infobox-data">Java Edition 1.21.4</td>
+                    </tr>
+                    <tr class="infobox-row">
+                        <td class="infobox-label">Server Software</td>
+                        <td class="infobox-data">Paper</td>
+                    </tr>
+                    <tr class="infobox-row">
+                        <td class="infobox-label">Game Mode</td>
+                        <td class="infobox-data">Survival</td>
+                    </tr>
+                    <tr class="infobox-row">
+                        <td class="infobox-label">Server Type</td>
+                        <td class="infobox-data">Semi-Vanilla SMP</td>
+                    </tr>
+                    <tr class="infobox-row">
+                        <td class="infobox-label">Whitelist</td>
+                        <td class="infobox-data">Yes</td>
+                    </tr>
+                    <tr class="infobox-row">
+                        <td class="infobox-label">Launch Date</td>
+                        <td class="infobox-data">September 2025</td>
+                    </tr>
+                    <tr class="infobox-row">
+                        <td class="infobox-label">Community Size</td>
+                        <td class="infobox-data">Small (20-30 players)</td>
+                    </tr>
+                    <tr class="infobox-row">
+                        <td class="infobox-label">Discord</td>
+                        <td class="infobox-data"><a href="https://discord.com/invite/Q8WPWGYfDU" class="external-link">Join Server</a></td>
+                    </tr>
+                </table>
+
+                <p><strong>The Quarry</strong> is a semi-vanilla survival multiplayer <strong>Minecraft</strong> server launched in September 2025. The server emphasizes community building, player interaction, and democratic governance through monthly mayoral elections. Operating on <strong>Paper server software</strong> with Java Edition 1.21.4, The Quarry aims to recreate the authentic community experience of early Minecraft multiplayer servers.</p>
+
+                <div class="wiki-toc">
+                    <div class="toc-title">Contents</div>
+                    <ol class="toc-list">
+                        <li class="toc-item"><a href="#overview">1 Overview</a></li>
+                        <li class="toc-item"><a href="#gameplay">2 Gameplay Features</a>
+                            <ol>
+                                <li class="toc-item"><a href="#elections">2.1 Mayoral Elections</a></li>
+                                <li class="toc-item"><a href="#economy">2.2 Player Economy</a></li>
+                                <li class="toc-item"><a href="#community">2.3 Community Projects</a></li>
+                            </ol>
+                        </li>
+                        <li class="toc-item"><a href="#technical">3 Technical Specifications</a></li>
+                        <li class="toc-item"><a href="#rules">4 Server Rules</a></li>
+                        <li class="toc-item"><a href="#joining">5 Joining the Server</a></li>
+                        <li class="toc-item"><a href="#history">6 Server History</a></li>
+                    </ol>
+                </div>
+
+                <div class="wiki-section" id="overview">
+                    <h2>Overview</h2>
+                    <p>The Quarry was founded with the goal of <span class="highlight">recreating the community-focused experience</span> that characterized early Minecraft multiplayer servers. Unlike large-scale servers with hundreds of concurrent players, The Quarry maintains a small, tight-knit community where individual players can make meaningful impacts on the server's development and culture.</p>
+
+                    <p>The server operates on a <strong>semi-vanilla</strong> philosophy, maintaining core Minecraft gameplay mechanics while incorporating performance optimizations and community-driven features. Voice chat integration allows for real-time communication, fostering stronger social connections between players.</p>
+                </div>
+
+                <div class="wiki-section" id="gameplay">
+                    <h2>Gameplay Features</h2>
+                    
+                    <h3 id="elections">Mayoral Elections</h3>
+                    <p>Every month, The Quarry holds <strong>democratic elections</strong> to choose a mayor who gains authority over:</p>
+                    <ul>
+                        <li><strong>Economic policies</strong> - Trade regulations and resource allocation</li>
+                        <li><strong>Community events</strong> - Festivals, competitions, and gatherings</li>
+                        <li><strong>Infrastructure development</strong> - Public projects and server improvements</li>
+                        <li><strong>Conflict resolution</strong> - Mediating disputes between players</li>
+                    </ul>
+
+                    <h3 id="economy">Player Economy</h3>
+                    <p>The Quarry features a <strong>plugin-free economy</strong> based entirely on player interaction, reputation, and resource trading. Without virtual currency systems, economic activity relies on:</p>
+                    <ul>
+                        <li>Direct resource bartering</li>
+                        <li>Service-based transactions</li>
+                        <li>Community reputation and trust</li>
+                        <li>Collaborative business ventures</li>
+                    </ul>
+
+                    <h3 id="community">Community Projects</h3>
+                    <p>Large-scale building projects are undertaken collectively, with community input on design and implementation. Recent projects include shared transportation networks, public facilities, and collaborative town planning.</p>
+                </div>
+
+                <div class="wiki-section" id="technical">
+                    <h2>Technical Specifications</h2>
+                    <p>The Quarry operates on <strong>Paper server software</strong>, a high-performance fork of the official Minecraft server that provides:</p>
+                    <ul>
+                        <li>Enhanced performance and reduced lag</li>
+                        <li>Bug fixes for vanilla Minecraft issues</li>
+                        <li>Improved chunk loading and entity processing</li>
+                        <li>Maintains complete gameplay compatibility</li>
+                    </ul>
+
+                    <h4>Server Configuration</h4>
+                    <ul>
+                        <li><strong>Difficulty:</strong> Hard</li>
+                        <li><strong>PvP:</strong> Enabled (community-regulated)</li>
+                        <li><strong>Keep Inventory:</strong> Disabled</li>
+                        <li><strong>Mob Griefing:</strong> Enabled</li>
+                        <li><strong>World Border:</strong> Unlimited</li>
+                        <li><strong>Uptime:</strong> 24/7 with minimal scheduled maintenance</li>
+                    </ul>
+                </div>
+
+                <div class="wiki-section" id="rules">
+                    <h2>Server Rules</h2>
+                    <p>The Quarry maintains a streamlined set of <strong>community guidelines</strong> focused on respect and fair play:</p>
+                    
+                    <h4>Core Principles</h4>
+                    <ul>
+                        <li><strong>Respect:</strong> Treat all community members with basic courtesy</li>
+                        <li><strong>Fair Play:</strong> No cheating, griefing, or exploitation</li>
+                        <li><strong>Community Space:</strong> Maintain appropriate distance (50+ blocks) from other players' builds</li>
+                        <li><strong>Environmental Care:</strong> Clean up after resource gathering and construction</li>
+                    </ul>
+
+                    <h4>Enforcement</h4>
+                    <p>Rule violations follow a <strong>progressive discipline system</strong>: Warning → Temporary Ban → Permanent Ban. Staff maintain final authority on rule interpretation and enforcement.</p>
+                </div>
+
+                <div class="wiki-section" id="joining">
+                    <h2>Joining the Server</h2>
+                    <p>Access to The Quarry requires <strong>whitelist approval</strong> through a community application process:</p>
+                    
+                    <ol>
+                        <li>Join the <a href="https://discord.com/invite/Q8WPWGYfDU" class="external-link">Discord community</a></li>
+                        <li>Complete the application form in the designated channel</li>
+                        <li>Await staff review (typically 24-48 hours)</li>
+                        <li>Connect to <span class="code">play.thequarry.xyz</span> upon approval</li>
+                    </ol>
+
+                    <h4>Application Requirements</h4>
+                    <p>Prospective players provide basic information including Minecraft username, age, server interests, and community goals. The application serves both as a screening process and an introduction to the community culture.</p>
+                </div>
+
+                <div class="wiki-section" id="history">
+                    <h2>Server History</h2>
+                    
+                    <h3>Foundation Era (September 2025)</h3>
+                    <p>The Quarry was established in September 2025 as a response to the perceived decline in community-focused Minecraft servers. The founding concept emphasized <strong>authentic social interaction</strong> over technical features or large-scale gameplay modifications.</p>
+
+                    <p>Within the first two weeks of operation, the server established its core community structures, including the democratic governance system and player-driven economic framework. Early settlements began forming around spawn areas, with collaborative infrastructure projects connecting initial player builds.</p>
+
+                    <h4>Early Development</h4>
+                    <ul>
+                        <li><strong>Week 1:</strong> Initial player settlements and resource establishment</li>
+                        <li><strong>Week 2:</strong> First trading relationships and community projects</li>
+                        <li><strong>Month 1:</strong> Implementation of mayoral election system</li>
+                    </ul>
+                </div>
+
+                <table class="navbox">
+                    <tr>
+                        <td class="navbox-title">Minecraft Server Communities</td>
+                    </tr>
+                    <tr>
+                        <td class="navbox-content">
+                            <a href="#">Small Community Servers</a> • 
+                            <a href="#">Semi-Vanilla SMPs</a> • 
+                            <a href="#">Democratic Servers</a> • 
+                            <a href="#">Whitelist Communities</a>
+                        </td>
+                    </tr>
+                </table>
+
+                <div class="wiki-categories">
+                    <div class="categories-title">Categories:</div>
+                    <div class="category-links">
+                        <a href="#">Minecraft Servers</a>
+                        <a href="#">Semi-Vanilla Servers</a>
+                        <a href="#">Community Servers</a>
+                        <a href="#">Survival Multiplayer</a>
+                        <a href="#">Whitelist Servers</a>
+                        <a href="#">Java Edition Servers</a>
+                    </div>
+                </div>
             </div>
-            <div class="filter-buttons">
-                <button class="filter-btn active" data-filter="all" onclick="filterMods(this,'all')">All</button>
-                <button class="filter-btn" data-filter="performance" onclick="filterMods(this,'performance')">Performance</button>
-                <button class="filter-btn" data-filter="visual" onclick="filterMods(this,'visual')">Visual</button>
-                <button class="filter-btn" data-filter="utility" onclick="filterMods(this,'utility')">Utility</button>
-                <button class="filter-btn" data-filter="restricted" onclick="filterMods(this,'restricted')">Restricted</button>
-            </div>
-            <div class="mod-list" id="mod-list"></div>
-        </section>
-        <section id="clients" class="content-section">
-            <h2>Allowed Clients</h2>
-            <p>Approved Minecraft clients for use on The Quarry server. Each client requires specific configuration to maintain server integrity.</p>
-            <div class="client-item"><div class="client-name">Badlion Client</div><p>Popular PvP-focused client with optimization features.</p><div class="client-restrictions">Required disabled modules: FreeLook, AutoText, Soup/Potion Counter, Schematica</div></div>
-            <div class="client-item"><div class="client-name">Feather Client</div><p>Lightweight client focused on performance optimization.</p><div class="client-restrictions">Required disabled modules: NoFog, Totem Counter</div></div>
-            <div class="client-item"><div class="client-name">Lunar Client</div><p>Feature-rich client requiring comprehensive configuration.</p><div class="client-restrictions">Required disabled modules: FreeLook, Radar, AutoText, Soup/Potion Counter, Item Counter</div></div>
-            <div class="client-item"><div class="client-name">Fabric Client</div><p>Modded client fully supported with approved mod list.</p></div>
-            <div class="client-item"><div class="client-name">Forge Client</div><p>Modded client with forge mod support.</p></div>
-            <div class="client-item"><div class="client-name">MultiMC</div><p>Launcher supporting multiple Minecraft instances and configurations.</p></div>
-            <div class="warning-box"><strong>Verification:</strong> Server staff may request configuration screenshots to verify compliance with restrictions.</div>
-        </section>
-        <section id="dupes" class="content-section">
-            <h2>Allowed Duplication Methods</h2>
-            <p>The Quarry embraces certain Minecraft mechanics as legitimate advanced techniques for technical gameplay.</p>
-            <div class="info-box"><strong>Technical Philosophy:</strong> Unintended mechanics are considered advanced features that enhance technical gameplay experience.</div>
-            <h3>Gravity Block Duplication</h3>
-            <ul style="margin-left:2rem;margin-bottom:1.5rem;"><li>Sand (all variants excluding suspicious sand)</li><li>Gravel (including flint drops)</li><li>Concrete Powder (all 16 colors)</li></ul>
-            <h3>Rail Duplication</h3>
-            <ul style="margin-left:2rem;margin-bottom:1.5rem;"><li>Regular Rails (standard minecart tracks only)</li></ul>
-            <h3>Carpet Duplication</h3>
-            <ul style="margin-left:2rem;margin-bottom:1.5rem;"><li>All Carpet Colors (all 16 variants)</li></ul>
-            <h3>TNT Duplication</h3>
-            <ul style="margin-left:2rem;margin-bottom:1.5rem;"><li>TNT Blocks (for world eaters, perimeters, technical contraptions)</li></ul>
-            <h3>Explicitly Prohibited</h3>
-            <ul style="margin-left:2rem;color:#d73027;"><li>Dragon Egg (unique item must remain singular)</li><li>Powered Rails (balance reasons)</li><li>Detector Rails (balance reasons)</li><li>Activator Rails (balance reasons)</li></ul>
-            <div class="warning-box"><strong>Fair Use Policy:</strong> Use responsibly to avoid server lag or crashes. Consider impact on other players.</div>
-        </section>
-        <section id="server-info" class="content-section">
-            <h2>Server Technical Information</h2>
-            <p>High-performance specifications and configuration details for The Quarry server infrastructure.</p>
-            <h3>Hardware Specifications</h3>
-            <div class="server-specs">
-                <div class="spec-card"><div class="spec-title">CPU</div><div class="spec-value">AMD Ryzen 9 5950X<br>16-core, 32-thread<br>3.4 GHz base / 4.9 GHz boost</div></div>
-                <div class="spec-card"><div class="spec-title">Memory</div><div class="spec-value">16GB DDR5<br>Dedicated to Minecraft</div></div>
-                <div class="spec-card"><div class="spec-title">Storage</div><div class="spec-value">NVMe SSD<br>7000+ MB/s read speeds</div></div>
-                <div class="spec-card"><div class="spec-title">Network</div><div class="spec-value">Enterprise gigabit connection<br>Frankfurt datacenter</div></div>
-            </div>
-            <h3>Game Configuration</h3>
-            <div class="server-specs">
-                <div class="spec-card"><div class="spec-title">Minecraft Version</div><div class="spec-value">1.21.8 (Latest)<br>Protocol: 772<br>Updated: September 16 2025</div></div>
-                <div class="spec-card"><div class="spec-title">Server Software</div><div class="spec-value">Fabric<br>OpenJDK 21 with G1GC<br>TPS Target: 20.0</div></div>
-            </div>
-            <h3>Connection Information</h3>
-            <div class="server-specs">
-                <div class="spec-card"><div class="spec-title">Java Edition</div><div class="spec-value">Address: <code>java.thequarry.xyz</code><br>Port: 25565 (default)<br>Max Players: 100</div></div>
-                <div class="spec-card"><div class="spec-title">Bedrock Edition</div><div class="spec-value">Address: <code>bedrock.thequarry.xyz</code><br>Port: 19132 (default)<br>Cross-platform compatible</div></div>
-            </div>
-            <h3>Performance Metrics</h3>
-            <div class="server-specs">
-                <div class="spec-card"><div class="spec-title">Average TPS</div><div class="spec-value">20.0 (Stable)</div></div>
-                <div class="spec-card"><div class="spec-title">Ping (EU)</div><div class="spec-value">&lt;15ms (Ultra-low latency)</div></div>
-                <div class="spec-card"><div class="spec-title">Uptime</div><div class="spec-value">99.9% (Enterprise reliability)</div></div>
-                <div class="spec-card"><div class="spec-title">RAM Usage</div><div class="spec-value">~12GB (Optimized allocation)</div></div>
-            </div>
-            <div class="info-box"><strong>Real-time Status:</strong> Live server statistics available on our Discord server for instant notifications about updates and maintenance.</div>
-        </section>
-    </main>
-</div>
-<footer class="footer"><p>&copy; 2024 The Quarry Minecraft Server. Technical Reference Wiki.</p></footer>
-<script>
-// Full mods list (285 entries) — categories and restrictions set where noted.
-const mods = [
-    {name:"AdvancedChatCore",category:"utility",restriction:""},
-    {name:"AdvancedChatLog",category:"utility",restriction:""},
-    {name:"AdvancementInfo",category:"utility",restriction:""},
-    {name:"AmbientSounds 5",category:"visual",restriction:""},
-    {name:"Amecs",category:"utility",restriction:""},
-    {name:"Animatica",category:"visual",restriction:""},
-    {name:"Annotated DI (Forge)",category:"utility",restriction:""},
-    {name:"AntiGhost",category:"utility",restriction:""},
-    {name:"Appleskin",category:"utility",restriction:""},
-    {name:"Architectury API",category:"utility",restriction:""},
-    {name:"ASH - Another Simple HUD",category:"utility",restriction:""},
-    {name:"ASH2 - Another Sophisticated HUD",category:"utility",restriction:""},
-    {name:"AuthMe",category:"utility",restriction:""},
-    {name:"Auto Clicker Fabric",category:"utility",restriction:"Not allowed for use in PvP combat, mob mode not allowed"},
-    {name:"Auto HUD",category:"visual",restriction:""},
-    {name:"Axiom",category:"utility",restriction:""},
-    {name:"Badlion Client",category:"utility",restriction:"FreeLook, AutoText, Soup/Potion Counter and Schematica must be disabled"},
-    {name:"Bedrock Waters",category:"visual",restriction:""},
-    {name:"BerdinskiyBear’s Armor HUD",category:"visual",restriction:""},
-    {name:"Better Animations Collection",category:"visual",restriction:""},
-    {name:"Better Biome Blend",category:"visual",restriction:""},
-    {name:"Better Clouds",category:"visual",restriction:""},
-    {name:"Better Fps Render Distance",category:"performance",restriction:""},
-    {name:"Better Hand Bobbing",category:"visual",restriction:""},
-    {name:"Better Hurt Cam",category:"visual",restriction:""},
-    {name:"Better Mount HUD",category:"visual",restriction:""},
-    {name:"Better Ping Display",category:"utility",restriction:""},
-    {name:"Better Sprinting",category:"utility",restriction:""},
-    {name:"Better Stats",category:"utility",restriction:""},
-    {name:"BetterF3",category:"utility",restriction:""},
-    {name:"Blockmeterfabric",category:"utility",restriction:""},
-    {name:"Blur+",category:"visual",restriction:""},
-    {name:"Bobby",category:"performance",restriction:""},
-    {name:"Bookshelf",category:"utility",restriction:""},
-    {name:"Boosted Brightness",category:"visual",restriction:""},
-    {name:"Borderless Mining",category:"utility",restriction:""},
-    {name:"BoxLib",category:"utility",restriction:""},
-    {name:"Canvas Renderer",category:"performance",restriction:""},
-    {name:"Capes",category:"visual",restriction:""},
-    {name:"Carpet Mod",category:"utility",restriction:""},
-    {name:"Carpet TIS Addition",category:"utility",restriction:""},
-    {name:"Charmonium",category:"visual",restriction:""},
-    {name:"Chat Heads",category:"visual",restriction:""},
-    {name:"Chat Notify",category:"utility",restriction:""},
-    {name:"Chat Sounds",category:"visual",restriction:""},
-    {name:"ChatHighlighter",category:"utility",restriction:""},
-    {name:"ChatShot",category:"utility",restriction:""},
-    {name:"Chime",category:"visual",restriction:""},
-    {name:"Chunk Copy",category:"utility",restriction:""},
-    {name:"ChunkBorders",category:"utility",restriction:""},
-    {name:"Chunks Fade In",category:"visual",restriction:""},
-    {name:"CIT Resewn",category:"visual",restriction:""},
-    {name:"Clean F3",category:"utility",restriction:""},
-    {name:"Clear Hitboxes",category:"utility",restriction:""},
-    {name:"Clear Skies",category:"visual",restriction:""},
-    {name:"Cloaksplus",category:"visual",restriction:""},
-    {name:"Cloth Config API",category:"utility",restriction:""},
-    {name:"Collective",category:"utility",restriction:""},
-    {name:"Color Me Outlines",category:"visual",restriction:""},
-    {name:"Colormatic",category:"visual",restriction:""},
-    {name:"CompleteConfig",category:"utility",restriction:""},
-    {name:"Configurable Boss Bars",category:"visual",restriction:""},
-    {name:"Continuity",category:"visual",restriction:""},
-    {name:"Controlling",category:"utility",restriction:""},
-    {name:"Coordinate Calculator",category:"utility",restriction:""},
-    {name:"Coordinates Display",category:"utility",restriction:""},
-    {name:"Craftify",category:"utility",restriction:""},
-    {name:"CraftPresence",category:"utility",restriction:""},
-    {name:"CreativeCore",category:"utility",restriction:""},
-    {name:"Crosshair Tweaks",category:"visual",restriction:""},
-    {name:"Cubes Without Borders",category:"visual",restriction:""},
-    {name:"Cull Leaves",category:"performance",restriction:""},
-    {name:"Cull Less Leaves",category:"performance",restriction:""},
-    {name:"Cull Particles",category:"performance",restriction:""},
-    {name:"Cupboard",category:"utility",restriction:""},
-    {name:"Custom Crosshair Mod",category:"visual",restriction:""},
-    {name:"Custom Entity Models (CEM)",category:"visual",restriction:""},
-    {name:"Custom Splash Screen",category:"visual",restriction:""},
-    {name:"Custom Totem Particles",category:"visual",restriction:""},
-    {name:"CustomHud",category:"utility",restriction:""},
-    {name:"Dark Loading Screen",category:"visual",restriction:""},
-    {name:"Dash Loader",category:"performance",restriction:""},
-    {name:"DamageVignette",category:"visual",restriction:""},
-    {name:"Debugify",category:"utility",restriction:""},
-    {name:"Detail Armor Bar",category:"visual",restriction:""},
-    {name:"DeathFX",category:"visual",restriction:""},
-    {name:"Distant Horizons",category:"performance",restriction:""},
-    {name:"Don't Clear Chat History",category:"utility",restriction:""},
-    {name:"Don't Untoggle Sprint",category:"utility",restriction:""},
-    {name:"Durability Notifier",category:"utility",restriction:""},
-    {name:"Durability101",category:"utility",restriction:""},
-    {name:"Dynamic FPS",category:"performance",restriction:""},
-    {name:"Dynamic Music Updated",category:"visual",restriction:""},
-    {name:"Eating Animation",category:"visual",restriction:""},
-    {name:"Effective",category:"visual",restriction:""},
-    {name:"Emoji Type",category:"utility",restriction:""},
-    {name:"Enchantment Descriptions",category:"utility",restriction:""},
-    {name:"Enhanced Attack Indicator",category:"visual",restriction:""},
-    {name:"Enhanced Block Entities",category:"performance",restriction:""},
-    {name:"Entity Culling",category:"performance",restriction:""},
-    {name:"Entity Model Features",category:"visual",restriction:""},
-    {name:"Entity Texture Features",category:"visual",restriction:""},
-    {name:"Exordium",category:"performance",restriction:""},
-    {name:"ExtraPlayerRender",category:"visual",restriction:""},
-    {name:"Fabric API",category:"utility",restriction:""},
-    {name:"Fabric Capes",category:"visual",restriction:""},
-    {name:"Fabric Language Kotlin",category:"utility",restriction:""},
-    {name:"Fabric Skyboxes",category:"visual",restriction:""},
-    {name:"Fabric Skyboxes Interop",category:"visual",restriction:""},
-    {name:"Fabrishot",category:"utility",restriction:""},
-    {name:"Fadeless",category:"visual",restriction:""},
-    {name:"Falling Leaves",category:"visual",restriction:""},
-    {name:"FancyMenu",category:"visual",restriction:""},
-    {name:"Farsight",category:"performance",restriction:""},
-    {name:"Fast Anim",category:"performance",restriction:""},
-    {name:"Fast Items",category:"performance",restriction:""},
-    {name:"Fast Open Links And Folders",category:"utility",restriction:""},
-    {name:"FastQuit",category:"utility",restriction:""},
-    {name:"Ferritecore",category:"performance",restriction:""},
-    {name:"Fireplace Lib (Fabric/Quilt)",category:"utility",restriction:""},
-    {name:"First Person Model",category:"visual",restriction:""},
-    {name:"Fishing Ruler",category:"utility",restriction:""},
-    {name:"FlightHUD",category:"utility",restriction:""},
-    {name:"ForgetMeChunk",category:"performance",restriction:""},
-    {name:"Folders!",category:"utility",restriction:""},
-    {name:"Force Close Loading Screen",category:"utility",restriction:""},
-    {name:"FPS Display",category:"utility",restriction:""},
-    {name:"FPS Reducer",category:"performance",restriction:""},
-    {name:"Full Brightness Toggle",category:"visual",restriction:""},
-    {name:"Fullscreen Borderless",category:"utility",restriction:""},
-    {name:"Gamma Utils",category:"visual",restriction:""},
-    {name:"Ghost Totem",category:"visual",restriction:""},
-    {name:"Grid",category:"utility",restriction:""},
-    {name:"GUI Scale",category:"visual",restriction:""},
-    {name:"HaloHUD",category:"utility",restriction:""},
-    {name:"Held Item Info",category:"utility",restriction:""},
-    {name:"Higher Chat",category:"utility",restriction:""},
-    {name:"Hold That Chunk",category:"utility",restriction:""},
-    {name:"Horse Stats Vanilla",category:"utility",restriction:""},
-    {name:"Hydrogen",category:"performance",restriction:""},
-    {name:"Iceberg",category:"utility",restriction:""},
-    {name:"Illuminations",category:"visual",restriction:""},
-    {name:"ImmediatelyFast",category:"performance",restriction:""},
-    {name:"Indium",category:"performance",restriction:""},
-    {name:"Infinite Music",category:"visual",restriction:""},
-    {name:"Inspecio",category:"utility",restriction:""},
-    {name:"Inventory Spam",category:"utility",restriction:""},
-    {name:"Iris Shaders",category:"visual",restriction:""},
-    {name:"Isometric Renders",category:"visual",restriction:""},
-    {name:"Item Model Fix",category:"visual",restriction:""},
-    {name:"ItemPhysic Lite",category:"visual",restriction:""},
-    {name:"JMX",category:"utility",restriction:""},
-    {name:"JsonEM",category:"utility",restriction:""},
-    {name:"KennyTV's Epic Force Close Loading Screen Mod for Fabric",category:"utility",restriction:""},
-    {name:"Konkrete",category:"utility",restriction:""},
-    {name:"Krypton",category:"performance",restriction:""},
-    {name:"LambDynamicLights",category:"visual",restriction:""},
-    {name:"LazyDFU",category:"performance",restriction:""},
-    {name:"Legendary Tooltips",category:"visual",restriction:""},
-    {name:"Light Overlay",category:"utility",restriction:""},
-    {name:"Litematica",category:"utility",restriction:"No EasyPlace"},
-    {name:"Lithium",category:"performance",restriction:""},
-    {name:"LogicalZoom",category:"utility",restriction:""},
-    {name:"Low Fire",category:"visual",restriction:""},
-    {name:"Main Menu Credits",category:"visual",restriction:""},
-    {name:"Malilib",category:"utility",restriction:""},
-    {name:"Map Tooltip",category:"utility",restriction:""},
-    {name:"Memory Leak Fix",category:"utility",restriction:""},
-    {name:"Midnight Controls",category:"utility",restriction:""},
-    {name:"MidnightLib",category:"utility",restriction:""},
-    {name:"MiniHUD",category:"utility",restriction:""},
-    {name:"Minimal Menu",category:"visual",restriction:""},
-    {name:"Mixin Conflict Helper",category:"utility",restriction:""},
-    {name:"MixinTrace",category:"utility",restriction:""},
-    {name:"Mod Menu",category:"utility",restriction:""},
-    {name:"Model Fix",category:"utility",restriction:""},
-    {name:"More Block Predicates",category:"utility",restriction:""},
-    {name:"More Chat History",category:"utility",restriction:""},
-    {name:"More Culling",category:"performance",restriction:""},
-    {name:"More Mcmeta",category:"utility",restriction:""},
-    {name:"MoreBeeInfo",category:"utility",restriction:""},
-    {name:"Motion Blur Fabric",category:"visual",restriction:""},
-    {name:"Mouse Tweaks",category:"utility",restriction:""},
-    {name:"MultiMC",category:"utility",restriction:""},
-    {name:"MyBrightness",category:"visual",restriction:""},
-    {name:"NameTagPing",category:"utility",restriction:""},
-    {name:"Nametag Tweaks",category:"utility",restriction:""},
-    {name:"No Chat Reports",category:"utility",restriction:""},
-    {name:"No Death Animation",category:"visual",restriction:""},
-    {name:"No Fade",category:"visual",restriction:""},
-    {name:"No Menu Blur",category:"utility",restriction:""},
-    {name:"No More Useless Keys",category:"utility",restriction:""},
-    {name:"No Narrator",category:"utility",restriction:""},
-    {name:"No Resource Pack Warnings",category:"utility",restriction:""},
-    {name:"No Screen Bobbing",category:"visual",restriction:""},
-    {name:"No Telemetry",category:"utility",restriction:""},
-    {name:"No Weather Effects",category:"visual",restriction:""},
-    {name:"Not Enough Animations",category:"visual",restriction:""},
-    {name:"Not Enough Crashes",category:"utility",restriction:""},
-    {name:"NoTextureRotations",category:"utility",restriction:""},
-    {name:"Noxesium",category:"utility",restriction:""},
-    {name:"Nvidium",category:"performance",restriction:""},
-    {name:"Ok Zoomer",category:"utility",restriction:""},
-    {name:"Old Potions",category:"utility",restriction:""},
-    {name:"Omega Mute",category:"utility",restriction:""},
-    {name:"OptiFabric",category:"utility",restriction:""},
-    {name:"OptiFine",category:"performance",restriction:""},
-    {name:"OptiGUI",category:"utility",restriction:""},
-    {name:"Paginated Advancements",category:"utility",restriction:""},
-    {name:"Particle Rain",category:"visual",restriction:""},
-    {name:"Phosphor",category:"performance",restriction:""},
-    {name:"Physics Mod",category:"visual",restriction:""},
-    {name:"Pick Up Notifier",category:"utility",restriction:""},
-    {name:"PlacementPreview",category:"utility",restriction:""},
-    {name:"Presence Footsteps",category:"visual",restriction:""},
-    {name:"Prism",category:"utility",restriction:""},
-    {name:"Puzzle",category:"utility",restriction:""},
-    {name:"Puzzles Lib",category:"utility",restriction:""},
-    {name:"Raised Clouds",category:"visual",restriction:""},
-    {name:"RebindAllTheKeys",category:"utility",restriction:""},
-    {name:"Rebind Narrator",category:"utility",restriction:""},
-    {name:"Reese’s Sodium Options",category:"utility",restriction:""},
-    {name:"Remove Reloading Screen",category:"utility",restriction:""},
-    {name:"Replaymod",category:"utility",restriction:""},
-    {name:"ResolutionControl+",category:"utility",restriction:""},
-    {name:"Roughly Enough Items",category:"utility",restriction:""},
-    {name:"Satin API",category:"utility",restriction:""},
-    {name:"Screenshot to Clipboard",category:"utility",restriction:""},
-    {name:"Searchables",category:"utility",restriction:""},
-    {name:"Shulker Tooltip",category:"utility",restriction:""},
-    {name:"ShulkerBoxToolTip",category:"utility",restriction:""},
-    {name:"Simple Armour HUD",category:"visual",restriction:""},
-    {name:"Simple Discord RPC",category:"utility",restriction:""},
-    {name:"Simple Fog Control",category:"visual",restriction:""},
-    {name:"Simple Voice Chat",category:"utility",restriction:""},
-    {name:"Skin Layers 3D",category:"visual",restriction:""},
-    {name:"Skiptransitions",category:"utility",restriction:""},
-    {name:"Sodium",category:"performance",restriction:"Not for fog"},
-    {name:"Sodium Extra",category:"performance",restriction:""},
-    {name:"Sodium Shadowy Path Blocks",category:"visual",restriction:""},
-    {name:"Sound Physics Remastered",category:"visual",restriction:""},
-    {name:"Speedometer",category:"utility",restriction:""},
-    {name:"Spell Checker",category:"utility",restriction:""},
-    {name:"Splash",category:"utility",restriction:""},
-    {name:"Spyglass Zoom",category:"utility",restriction:""},
-    {name:"Stalpomaparthelper",category:"utility",restriction:""},
-    {name:"Starlight Fabric",category:"utility",restriction:""},
-    {name:"Start The Music",category:"visual",restriction:""},
-    {name:"Status Effect Timer",category:"utility",restriction:""},
-    {name:"Stendhal",category:"utility",restriction:""},
-    {name:"Symbol Chat",category:"utility",restriction:""},
-    {name:"TbscClick",category:"utility",restriction:"Not allowed for use in PvP"},
-    {name:"Textbook",category:"utility",restriction:""},
-    {name:"TierTagger",category:"utility",restriction:""},
-    {name:"Tilt Break",category:"utility",restriction:""},
-    {name:"Time Changer",category:"utility",restriction:""},
-    {name:"Toggle Sprint Display",category:"utility",restriction:""},
-    {name:"ToolTipFix",category:"utility",restriction:""},
-    {name:"Totem Small Pop",category:"visual",restriction:""},
-    {name:"Totemparticleschanger",category:"visual",restriction:""},
-    {name:"Ukulib",category:"utility",restriction:""},
-    {name:"Universal Split Screen",category:"utility",restriction:""},
-    {name:"Varied Mob Textures",category:"visual",restriction:""},
-    {name:"Vertical Hotbar",category:"visual",restriction:""},
-    {name:"Verticality",category:"utility",restriction:""},
-    {name:"Very Many Players",category:"utility",restriction:""},
-    {name:"Viewmodel Changer",category:"visual",restriction:""},
-    {name:"Visuality",category:"visual",restriction:""},
-    {name:"Vivecraft",category:"utility",restriction:""},
-    {name:"Vulkan Renderer",category:"performance",restriction:""},
-    {name:"Wavey Capes",category:"visual",restriction:""},
-    {name:"WhoAmI",category:"utility",restriction:""},
-    {name:"Why am I on Fire",category:"utility",restriction:""},
-    {name:"WhyMap",category:"utility",restriction:""},
-    {name:"WI Zoom",category:"utility",restriction:""},
-    {name:"World Downloader",category:"utility",restriction:""},
-    {name:"WorldEdit",category:"utility",restriction:""},
-    {name:"WorldEdit CUI",category:"utility",restriction:""},
-    {name:"WorldTools",category:"utility",restriction:""},
-    {name:"Xaero Zoomout",category:"utility",restriction:""},
-    {name:"Xaero’s Minimap (Fair-play Edition)",category:"utility",restriction:""},
-    {name:"Xaero’s World Map (Fair-play Edition)",category:"utility",restriction:""},
-    {name:"YetAnotherConfigLib",category:"utility",restriction:""},
-    {name:"YDM's Weapon Master",category:"utility",restriction:""},
-    {name:"Zoomify",category:"utility",restriction:""}
-];
-
-// Utility: escape HTML to avoid accidental markup when rendering names/restrictions
-function escapeHtml(str){
-    return String(str)
-        .replace(/&/g,'&amp;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;')
-        .replace(/'/g,'&#39;');
-}
-
-function renderMods(){
-    const list = document.getElementById('mod-list');
-    list.innerHTML = '';
-    mods.forEach(m => {
-        const div = document.createElement('div');
-        div.className = 'mod-item';
-        // store searchable data attributes
-        div.setAttribute('data-name', m.name);
-        div.setAttribute('data-category', m.category);
-        div.setAttribute('data-restriction', m.restriction || '');
-
-        const restrictionHTML = m.restriction ? `<div class=\"mod-restriction\">${escapeHtml(m.restriction)}</div>` : '';
-        div.innerHTML = `\n            <div class=\"mod-name\">${escapeHtml(m.name)}</div>\n            <div class=\"mod-category\">${escapeHtml(m.category)}</div>\n            ${restrictionHTML}\n        `;
-        list.appendChild(div);
-    });
-    updateSearchStats();
-}
-
-function updateSearchStats(){
-    const visible = document.querySelectorAll('.mod-item:not(.hidden)').length;
-    const total = mods.length;
-    document.getElementById('search-stats').innerText = `Showing ${visible} of ${total} mods`;
-}
-
-function showSection(elem, id){
-    // element (elem) is the clicked anchor/button passed directly from onclick="showSection(this,'mods')"
-    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
-    const target = document.getElementById(id);
-    if(target) target.classList.add('active');
-    document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
-    if(elem && elem.classList) elem.classList.add('active');
-}
-
-function filterMods(elem, type){
-    // elem is the clicked button element
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-    if(elem && elem.classList) elem.classList.add('active');
-
-    const query = document.getElementById('mod-search').value.trim().toLowerCase();
-    let count = 0;
-    document.querySelectorAll('.mod-item').forEach(item => {
-        const name = (item.getAttribute('data-name') || '').toLowerCase();
-        const category = item.getAttribute('data-category');
-        const restriction = item.getAttribute('data-restriction') || '';
-        const matchesQuery = !query || name.includes(query);
-        const isRestricted = !!restriction;
-        let matchesFilter = false;
-        if(type === 'all') matchesFilter = true;
-        else if(type === 'restricted') matchesFilter = isRestricted;
-        else matchesFilter = category === type;
-        const show = matchesQuery && matchesFilter;
-        item.classList.toggle('hidden', !show);
-        if(show) count++;
-    });
-    document.getElementById('search-stats').innerText = `Showing ${count} mods`;
-}
-
-function searchMods(){
-    const query = document.getElementById('mod-search').value.trim().toLowerCase();
-    const activeFilterBtn = document.querySelector('.filter-btn.active');
-    const filterType = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
-    let count = 0;
-    document.querySelectorAll('.mod-item').forEach(item => {
-        const name = (item.getAttribute('data-name') || '').toLowerCase();
-        const category = item.getAttribute('data-category');
-        const restriction = item.getAttribute('data-restriction') || '';
-        const matchesQuery = !query || name.includes(query);
-        const isRestricted = !!restriction;
-        let matchesFilter = false;
-        if(filterType === 'all') matchesFilter = true;
-        else if(filterType === 'restricted') matchesFilter = isRestricted;
-        else matchesFilter = category === filterType;
-        const show = matchesQuery && matchesFilter;
-        item.classList.toggle('hidden', !show);
-        if(show) count++;
-    });
-    document.getElementById('search-stats').innerText = `Showing ${count} mods`;
-}
-
-// Initial render
-renderMods();
-
-</script>
+        </div>
+    </div>
 </body>
 </html>
